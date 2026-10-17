@@ -1,0 +1,32 @@
+{
+  "id":"001-cat", "word":"Cat", "translation":"แมว",
+  "width":720, "height":1280, "fps":30, "duration":14,
+  "background":"assets/shared/playroom.png",
+  "decorations":"assets/shared/decorations.png",
+  "sprite":{"path":"episodes/001-cat/sprites/cat-sheet.png","columns":4,"rows":4},
+  "scenes":[
+    {"start":0,"end":2,"title":"What is this?","subtitle":"นี่คือตัวอะไรนะ?","frames":[0,3],"rate":2,"effect":"bounce"},
+    {"start":2,"end":4,"title":"ลองทายดูสิ","subtitle":"รู้ไหมเอ่ย?","frames":[4,5,7,1,2,3],"rate":3,"effect":"think"},
+    {"start":4,"end":5,"title":"พร้อมเฉลยไหม?","subtitle":"3 · 2 · 1","frames":[6,7],"rate":2,"effect":"countdown"},
+    {"start":5,"end":7,"title":"Cat!","subtitle":"แคท","frames":[12,13,15],"rate":4,"effect":"reveal"},
+    {"start":7,"end":10,"title":"Cat = แมว","subtitle":"แมว ภาษาอังกฤษว่า Cat","frames":[8,9,10,11],"rate":4,"effect":"wave"},
+    {"start":10,"end":14,"title":"พูดตามนะ… Cat!","subtitle":"เก่งมากเลย!","frames":[12,13,14,15],"rate":4,"effect":"repeat"}
+  ],
+  "narration":[
+    {"start":0.2,"text":"What is this?","voice":"en-US-AnaNeural","file":"question.mp3"},
+    {"start":2.1,"text":"ลองทายดูสิ","voice":"th-TH-PremwadeeNeural","file":"think.mp3"},
+    {"start":5.1,"text":"Cat!","voice":"en-US-AnaNeural","file":"cat.mp3"},
+    {"start":7.1,"text":"Cat แปลว่า แมว","voice":"th-TH-PremwadeeNeural","file":"meaning.mp3"},
+    {"start":10.05,"text":"พูดตามนะ","voice":"th-TH-PremwadeeNeural","file":"repeat.mp3"},
+    {"start":11.5,"text":"Cat!","voice":"en-US-AnaNeural","file":"cat.mp3"},
+    {"start":12.7,"text":"เก่งมากเลย","voice":"th-TH-PremwadeeNeural","file":"praise.mp3"}
+  ],
+  "sounds":[
+    {"start":0,"file":"pop.wav","gain":0.45},
+    {"start":4,"file":"tick.wav","gain":0.3},
+    {"start":4.33,"file":"tick.wav","gain":0.3},
+    {"start":4.66,"file":"tick.wav","gain":0.3},
+    {"start":5,"file":"sparkle.wav","gain":0.4},
+    {"start":13,"file":"sparkle.wav","gain":0.25}
+  ]
+}

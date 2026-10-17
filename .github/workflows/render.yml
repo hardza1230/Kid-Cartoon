@@ -1,0 +1,56 @@
+name: Render episode
+on:
+  workflow_dispatch:
+    inputs:
+      episode:
+        description: Episode folder (for example 001-cat)
+        type: string
+        default: 001-cat
+        required: true
+  push:
+    branches: [main]
+    paths: ['engine/**', 'episodes/**', 'assets/**', 'scripts/**', 'requirements.txt', '.github/workflows/render.yml']
+  pull_request:
+    paths: ['engine/**', 'episodes/**', 'assets/**', 'scripts/**', 'requirements.txt', '.github/workflows/render.yml']
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EPISODE: ${{ inputs.episode || '001-cat' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libraqm0
+          pip install -r requirements.txt
+      - name: Validate episode selection
+        run: |
+          [[ "$EPISODE" =~ ^[0-9]{3}-[a-z0-9-]+$ ]]
+          test -f "episodes/$EPISODE/episode.json"
+      - name: Generate any missing narration
+        run: python scripts/voices.py --episode "$EPISODE"
+      - run: npm test
+      - name: Render
+        run: python engine/render.py --episode "$EPISODE"
+      - name: Verify media
+        run: python scripts/check_render.py "build/$EPISODE.mp4" "episodes/$EPISODE/episode.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: episode-${{ env.EPISODE }}
+          path: |
+            build/*.mp4
+            build/*.srt
+            build/*.png
+            episodes/${{ env.EPISODE }}/audio/*.mp3
+          if-no-files-found: error
+          retention-days: 30

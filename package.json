@@ -1,0 +1,1 @@
+{"name":"kid-cartoon","private":true,"type":"module","scripts":{"test":"node scripts/check.mjs","new:episode":"node scripts/new-episode.mjs"}}
